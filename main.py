@@ -10,7 +10,6 @@ def get_book(book_name):
     for book in books:
         if book_name in book:
             book_fp += book
-    print(book_fp)
     with open(book_fp) as f:
         file_contents = f.read()
     return file_contents
