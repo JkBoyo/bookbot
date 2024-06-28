@@ -16,10 +16,29 @@ def main():
 def get_book(book_name):
     books = os.listdir("./books/")
     book_fp = "./books/"
+    matching_books = list()
     for book in books:  # loop for doing a substring in string search.
         if book_name.lower() in book.lower():
-            book_fp += book
-            break  # don't wanna deal with potential multiple files having matching parts. Ensures only one path returned.
+            matching_books.append(book)
+    
+    if len(matching_books) > 1:
+        print(f'Found multiple books that contain: "{book_name}"')
+        for index, entry in enumerate(matching_books):
+            print(f"{index}: {entry}")
+        selection = input("Which book did you mean? (-1 to exit): ")
+        if isinstance(selection, int):
+            if (selection >= 0 and selection < len(matching_books)):  
+                book_fp += matching_books[selection]
+            elif (selection == -1):
+                print("No book selected. Exiting...")
+                exit()
+            else:
+                print(f"Please enter a Number between -1 and {len(matching_books)}")
+                exit()
+        else:
+            print("This input is not supported!")
+            exit()
+
     with open(book_fp) as f:  # getting file contents
         file_contents = f.read()
     return file_contents
