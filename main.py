@@ -21,7 +21,7 @@ def get_book(book_name):
         if book_name.lower() in book.lower():
             matching_books.append(book)
     
-    if len(matching_books) > 1:
+    if len(matching_books) > 1: # if there are more then 1 matches
         print(f'Found multiple books that contain: "{book_name}"')
         for index, entry in enumerate(matching_books):
             print(f"{index}: {entry}")
@@ -38,6 +38,12 @@ def get_book(book_name):
         else:
             print("This input is not supported!")
             exit()
+    elif(len(matching_books)==1):  # if there is exactly 1 match
+        book_fp += matching_books[0]
+
+    else: # if there is no match
+        print("No match found! Exiting...")
+        exit()
 
     with open(book_fp) as f:  # getting file contents
         file_contents = f.read()
